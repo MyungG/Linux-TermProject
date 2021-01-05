@@ -17,29 +17,32 @@
 unsigned char text_lcd_buff[TEXT_LCD_MAX_BUFF];
 unsigned char quit = 0;
 void user_signal1(int sig)
-{	quit = 1;
-}int main(void)
+{	
+	quit = 1;
+}
+int main(void)
 {	int flag1=0;
 	int i,j;
 	int dev_dot, dev_push, dev_step, dev_led, dev_lcd;
 	int buff_size,str_size,num;
 	unsigned char push_sw_buff[4];
-		int m_action;
+	int m_action;
 	int m_direction;
 	int m_speed;
 	unsigned char motor_state[3];
 	unsigned char led_data;
 	unsigned char retval;
 	int state=0;
-		dev_lcd = open(FPGA_TEXT_LCD_DEVICE, O_WRONLY);
+	dev_lcd = open(FPGA_TEXT_LCD_DEVICE, O_WRONLY);
 	dev_push = open(FPGA_PUSH_SWITCH, O_RDWR);
 	dev_dot = open(FPGA_DOT_DEVICE, O_WRONLY);
 	dev_step = open(FPGA_STEP_MOTOR_DEVICE, O_WRONLY);
 	dev_led = open(FPGA_LED_DEVICE, O_RDWR);
-		memset(text_lcd_buff,' ',TEXT_LCD_MAX_BUFF);
+	memset(text_lcd_buff,' ',TEXT_LCD_MAX_BUFF);
 	(void)signal(SIGINT, user_signal1);
 	buff_size = sizeof(push_sw_buff);
-		while(!quit){
+	while(!quit)
+	{
 		usleep(400000);
 		read(dev_push, &push_sw_buff, buff_size);
 			for(i=0; i<4; i++){
